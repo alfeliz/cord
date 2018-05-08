@@ -1,13 +1,12 @@
-#########################################################################
+###########################################################################################################
 #
 #  Octave script to extract form the Cordin images traces the radial expansion as function of time.
 #
 # It uses the functions:
 #	 timeframe						To adjust the Cordin frames into microseconds.
 #	 display_rounded_matrix			To write correctly the final output files.
-
-
-
+#
+###########################################################################################################
 #   This script will work ONLY in the folder with all the Cordin shots AND a folder called RAW-good with the CSV files.
 
 more off; %To make the lines display when they appear in the script, not at the end of it.
@@ -41,7 +40,7 @@ for i=3:numel(carpetas_disp) #For every file/folder in the main folder:
      	fra_numb = str2num(str(regexp(str,'_')(1)+1:regexp(str,'_')(2)-1)); #Finding the frame number
      	trace = dlmread(frames(j).name, ',',1,0); #reading the CSV file
      	peak =find(trace(:,2)>max(trace(:,2))*0.75); #Peak positions
-     	radius = ( abs(peak(1)-peak(end))/2 )*mm; #mm. Radial value from this trace.
+     	radius = ( abs( trace(peak(1))-trace(peak(end)) )/2 )*mm; #mm. Radial value from this trace.
      	rad = [rad; timeframe(fra_numb), radius];
      endfor;
     archivo = horzcat(main_folder,'/',carpetas_disp{i},"-rad.txt");
